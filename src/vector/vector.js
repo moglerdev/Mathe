@@ -13,7 +13,7 @@ export const kreuzProdukt = (vec1, vec2) => {
  * @returns integer
  */
 export const  betrag = (vector) => {
-    return Math.sqrt(summennorm(vector));
+    return Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2) + Math.pow(vector.z, 2));
 }
 
 /**
@@ -21,5 +21,5 @@ export const  betrag = (vector) => {
  * @returns 
  */
 export const summennorm = (vector) => {
-    return Math.pow(vector.x, 2) + Math.pow(vector.y, 2) + Math.pow(vector.z, 2)
+    return Math.abs(vector.x) + Math.abs(vector.y) + Math.abs(vector.z);
 }

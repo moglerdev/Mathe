@@ -20,9 +20,13 @@ export class CameraControlPAV {
     __curPos = new Vector2(11, 11);
 
     __radius = 10;
-    __speed = 0.001;
+    __minRadius = 2;
+    __maxRadius = 100;
+    __speed = 0.005;
 
     __isLocked = false;
+
+    __isAnimated = false;
     
     constructor(camera, element = document.body, lockAt = new Vector3(0,0,0)) {
         this.__lockAt = lockAt;
@@ -52,24 +56,19 @@ export class CameraControlPAV {
         }
 
         const onMouseMove = (e) => {
-            this.__curPos.x += (mousePos.x - (width / 2)) //+ this.__lastPos.x;
-            let y = this.__curPos.y + (-mousePos.y + (height / 2))//+ this.__lastPos.y;
-
-            if(y > 500) {
-                y = 500;
-            } else if (y < -500) {
-                y = -500;
+            if(this.__isLocked) {
+                this.__curPos.x += (mousePos.x - (width / 2)) //+ this.__lastPos.x;
+                let y = this.__curPos.y + (-mousePos.y + (height / 2))//+ this.__lastPos.y;
+                this.__curPos.y = y;
             }
-
-            this.__curPos.y = y;
         }
 
         const onWheel = (e) => {
-            this.__radius += -e.wheelDeltaY / 20;
-            if (this.__radius < 10) {
-                this.__radius = 10;
-            } else if(this.__radius > 100) {
-                this.__radius = 100;
+            this.__radius += -e.wheelDeltaY / 40;
+            if (this.__radius < this.__minRadius) {
+                this.__radius = this.__minRadius;
+            } else if(this.__radius > this.__maxRadius) {
+                this.__radius = this.__maxRadius;
             }
         }
         
@@ -91,8 +90,9 @@ export class CameraControlPAV {
     update(elapsedTime) {
         let x = this.__curPos.x;
         let y = this.__curPos.y;
-    
-        if(this.__isLocked == false) {
+        if(this.__isLocked) {
+        }
+        else if(this.__isAnimated) {
             this.__radius = Math.abs(Math.cos(this.__speed * (elapsedTime / 2)) * 10) + 10;
             x = elapsedTime / 2;
             y = elapsedTime / 4;

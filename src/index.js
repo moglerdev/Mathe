@@ -1,36 +1,25 @@
-import { BoxGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, Vector3, BufferGeometry, Line } from 'three'
+import { Vector3 } from 'three';
+import { render, init } from './engine/engine'
 
-import { add, remove, render, init } from './engine/engine'
+import { createCube, createLine, createVisualVector } from './engine/utils'
+import { kreuzProdukt } from './vector/vector';
 
 init();
 
-window.scrollTo(window.scrollX, window.scrollY - 1);
-window.scrollTo(window.scrollX, window.scrollY + 1);
+//createCube(new Vector3(0, 0, 0), new Vector3(2, 2, 2), 0x2f2f2f)
+
+let v0 = new Vector3(0, 0, 0);
+let v1 = new Vector3(1, 1, 1);
+let v2 = new Vector3(0, -1, 1);
+let v3 = new Vector3(1/3, 1/3, 1/3);
 
 
-const createLine = (points, color) => {
-    const material = new LineBasicMaterial({ color: color });
-    const geometry = new BufferGeometry().setFromPoints(points);
-    const line = new Line(geometry, material);
-    add(line);
 
-    return line;
-}
+let w = createVisualVector(kreuzProdukt(v1, v2, 0xff00ff) );
 
-const createCube = (pos, size, color) => {
-    const geometry = new BoxGeometry(size.x, size.y, size.z);
-    const material = new MeshBasicMaterial( { color: color } );
-    const cube = new Mesh( geometry, material );
-
-    cube.position.x = pos.x;
-    cube.position.y = pos.y;
-
-    add(cube);
-
-    return cube;
-}
-
-createCube(new Vector3(0, 0, 0), new Vector3(2, 2, 2), 0x2f2f2f)
+let l1 = createVisualVector(v1, 0xff0000) // ROT
+let l2 = createVisualVector(v2, 0x00ff00) // GRÜN
+let l3 = createVisualVector(v3, 0x0000ff) // BLAU
 
 const animate = () => {
 	requestAnimationFrame( animate );

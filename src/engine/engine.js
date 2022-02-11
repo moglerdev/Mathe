@@ -21,7 +21,18 @@ export const init = () => {
 
     scene.add(new THREE.AxesHelper(100))
 
+    initLight();
+
     updateCamera(elapsedTime);
+}
+
+const initLight = () => {
+    const skyColor = 0xffffff;  // white blue
+    const groundColor = 0x0f0f0f;  // brownish orange
+    const intensity = 1;
+    
+    const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    scene.add(light);
 }
 
 export const render = () => {
