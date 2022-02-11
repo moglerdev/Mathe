@@ -18,7 +18,7 @@ let l1 = createVisualVector(v1, 0xff0000) // ROT
 let l2 = createVisualVector(v2, 0x00ff00) // GRÜN
 let l3 = createVisualVector(v3, 0x0000ff) // BLAU
 
-const p1 = createPlane(v1, v2);
+const p1 = createPlane(v1, v2, 0xf2f200);
 
 const animate = () => {
 	requestAnimationFrame( animate );

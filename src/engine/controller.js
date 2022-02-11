@@ -84,7 +84,8 @@ export class CameraControlPAV {
     }
 
     unlock() {
-        this.__element.exitPointerLock();
+        document.exitPointerLock();
+        this.__isLocked = false;
     }
 
     update(elapsedTime) {

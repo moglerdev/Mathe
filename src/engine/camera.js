@@ -20,6 +20,9 @@ canv.onmousedown = (e) => {
         controls.lock();
     }
 }
+document.onmouseup = (e) => {
+    controls.unlock();
+}
 
 export const getIsCameraActiveControl = () => { return isActive };
 
