@@ -1,12 +1,16 @@
-import { WebGLRenderer, Scene } from 'three';
-
-import { width, height } from './window'
+import { width, height, scene, renderer } from './window'
 import { camera, updateCamera, getIsCameraActiveControl } from './camera'
 
-export const scene = new Scene();
-export const renderer = new WebGLRenderer();
+import * as THREE from 'three'
 
 var elapsedTime = 0;
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    render()
+}, false)
 
 export const init = () => {
     renderer.setSize( width, height );
@@ -15,15 +19,15 @@ export const init = () => {
     
     camera.position.set( 0, 0, 100 );
 
-    updateCamera();
+    scene.add(new THREE.AxesHelper(100))
+
+    updateCamera(elapsedTime);
 }
 
 export const render = () => {
     elapsedTime++;
 
-    if(getIsCameraActiveControl()) {
-       updateCamera();
-    }
+    updateCamera(elapsedTime);
 
 	renderer.render( scene, camera );
 }

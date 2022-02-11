@@ -30,21 +30,6 @@ const createCube = (pos, size, color) => {
     return cube;
 }
 
-createLine([
-    new Vector3(0, 0, 0),
-    new Vector3(100, 0, 0)
-], 0x0000ff)
-
-createLine([
-    new Vector3(0, 0, 0),
-    new Vector3(0, 100, 0)
-], 0x00ff00)
-
-createLine([
-    new Vector3(0, 0, 0),
-    new Vector3(0, 0, 100)
-], 0xff0000)
-
 createCube(new Vector3(0, 0, 0), new Vector3(2, 2, 2), 0x2f2f2f)
 
 const animate = () => {
